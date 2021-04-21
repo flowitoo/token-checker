@@ -3,6 +3,7 @@ from threading import Thread
 import requests
 import colorama
 from config import threads, attempts
+from os.path import getsize as g
 
 c = colorama.Fore
 q = Queue(maxsize=0)
@@ -24,7 +25,7 @@ def check(token):
                     file.close()
                     pass
                 else:
-                    w = open("valid.txt", "a")
+                    w = open("valid.txt", "a+")
                     w.write(f"{token}\n")
                     w.close()
             print(f"{c.LIGHTBLACK_EX}[{c.GREEN}+{c.LIGHTBLACK_EX}] {c.WHITE}token works{c.LIGHTBLACK_EX}! ({c.LIGHTGREEN_EX}{token}{c.LIGHTBLACK_EX}){c.RESET}")
@@ -40,7 +41,7 @@ def check(token):
                                 file.close()
                                 pass
                             else:
-                                w = open("valid.txt", "a")
+                                w = open("valid.txt", "a+")
                                 w.write(f"{token}\n")
                                 w.close()
                         print(f"{c.LIGHTBLACK_EX}[{c.GREEN}+{c.LIGHTBLACK_EX}] {c.WHITE}token works{c.LIGHTBLACK_EX}! ({c.LIGHTGREEN_EX}{token}{c.LIGHTBLACK_EX}){c.RESET}")
@@ -62,9 +63,17 @@ for i in range(num_threads):
     worker.setDaemon(True)
     worker.start()
 
-f = open("tokens.txt", "r")
-tokens = f.readlines()
-for token in tokens:
-    q.put(token.strip())
+try:
+    f = open("tokens.txt", "r")
+    size = g("tokens.txt")
+    if size == 0:
+        print(f"{c.LIGHTRED_EX}Error, tokens.txt file is empty.")
+    tokens = f.readlines()
+    for token in tokens:
+        q.put(token.strip())
+except:
+    f = open("tokens.txt", "w")
+    print(f"{c.LIGHTRED_EX}Error, tokens.txt does not exists.")
+    print(f"{c.LIGHTGREEN_EX}tokens.txt file created successfully.")
 
 q.join()
