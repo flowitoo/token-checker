@@ -17,4 +17,4 @@ this is for educational purposes only, I do not want anyone to harm anyone,
 if by any chance this happens I am not responsible for it
 ```
 ## Screenshot
-![Screenshot](https://media.discordapp.net/attachments/775156196562305044/834558903831494706/unknown.png)
+[![Screenshot](https://media.discordapp.net/attachments/775156196562305044/834558903831494706/unknown.png)](https://github.com/flowitoo/token-checker)
