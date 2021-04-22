@@ -7,7 +7,7 @@ from os.path import getsize as g
 
 c = colorama.Fore
 q = Queue(maxsize=0)
-num_threads = (threads)
+num_threads = int(threads)
 recheck = int(attempts)
 
 def check(token):
